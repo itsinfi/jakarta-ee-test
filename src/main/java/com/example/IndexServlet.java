@@ -16,13 +16,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @WebServlet("/")
-public class App extends HttpServlet {
+public class IndexServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             ArrayList<String> result = runDataBaseTest();
-            resp.getOutputStream().println(result.toString());
+            // resp.getOutputStream().println(result.toString());
+            req.setAttribute("dbResults", result);
+
+            req.getRequestDispatcher("/index.xhtml").forward(req, resp);
+
         } catch (SQLException | ClassNotFoundException e) {
             resp.getOutputStream().println("Error: " + e);
         }
@@ -44,7 +48,7 @@ public class App extends HttpServlet {
             resultElement += resultSet.getString("1") + ", ";
             resultElement += resultSet.getString("2") + ", ";
             resultElement += resultSet.getString("3") + ", ";
-            resultElement += resultSet.getString("4");
+            resultElement += resultSet.getString("4") + "\n";
 
             result.add(resultElement);
         }

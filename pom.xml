@@ -15,23 +15,26 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <failOnMissingWebXML>false</failOnMissingWebXML> <!-- TODO: remove -->
+    <!--TODO:-->
   </properties>
 
   <dependencies>
-
-    <!-- <dependency> -->
-      <!-- <groupId>junit</groupId> -->
-      <!-- <artifactId>junit</artifactId> -->
-      <!-- <version>4.11</version> -->
-      <!-- <scope>test</scope> -->
-    <!-- </dependency> -->
-
+    <!-- MySQL Connector -->
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.33</version>
     </dependency>
 
+    <!-- Jakarta Platform API -->
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-web-api</artifactId>
+      <version>9.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <!-- Jakarta Faces API -->
     <dependency>
       <groupId>jakarta.faces</groupId>
       <artifactId>jakarta.faces-api</artifactId>
@@ -39,38 +42,29 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- <dependency> -->
-      <!-- <groupId>org.glassfish</groupId> -->
-      <!-- <artifactId>javax.faces</artifactId> -->
-      <!-- <version>2.3.9</version> -->
-    <!-- </dependency> -->
-
-    <!-- <dependency> -->
-      <!-- <groupId>jakarta.enterprise</groupId> -->
-      <!-- <artifactId>jakarta.enterprise.cdi-api</artifactId> -->
-      <!-- <version>3.0.0-M3</version> -->
-      <!-- <scope>provided</scope> -->
-    <!-- </dependency> -->
-
+    <!-- Jakarta Servlet API -->
     <dependency>
-      <groupId>jakarta.platform</groupId>
-      <artifactId>jakarta.jakartaee-web-api</artifactId>
-      <version>9.1.0</version>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>6.1.0</version>
       <scope>provided</scope>
     </dependency>
 
+    <!-- Jakarta CDI API -->
+    <dependency>
+      <groupId>jakarta.enterprise</groupId>
+      <artifactId>jakarta.enterprise.cdi-api</artifactId>
+      <version>3.0.0-M3</version>
+      <scope>provided</scope>
+    </dependency>
 
-    <!-- <dependency> -->
-      <!-- <groupId>org.hibernate</groupId> -->
-      <!-- <artifactId>hibernate-core</artifactId> -->
-      <!-- <version>5.6.15.Final</version> -->
-    <!-- </dependency> -->
-
-    <!-- <dependency> -->
-      <!-- <groupId>javax.ws.rs</groupId> -->
-      <!-- <artifactId>javax.ws.rs-api</artifactId> -->
-      <!-- <version>2.1.1</version> -->
-    <!-- </dependency> -->
+    <!-- Jakarta EL API -->
+    <dependency>
+      <groupId>jakarta.el</groupId>
+      <artifactId>jakarta.el-api</artifactId>
+      <version>6.0.1</version>
+      <scope>provided</scope>
+    </dependency>
 
   </dependencies>
 
