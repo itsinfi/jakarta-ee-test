@@ -2,15 +2,30 @@
 <html   
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 >
     <h:head>
         <title>Simple JSF Page</title>
     </h:head>
     <h:body>
         <h:outputText value="Hello, JSF!" />
+        
         <h1>Hier eine krasse Liste:</h1>
         <ul>
-            <li>#{dbResults}</li>
+            <ui:repeat var="result" value="#{dbResults}">
+                <li>#{result}</li>
+            </ui:repeat>
         </ul>
+
+        <h:form>
+            <h:outputLabel for="id" value="ID:"/>
+            <br/>
+
+            <h:outputLabel for="value" value="Value:"/>
+            <h:inputText id="value" value="#{valueBean.value}"/>
+            <br/>
+
+            <h:commandButton value="Save" action="#{valueBean.save}"/>
+        </h:form>
     </h:body>
 </html>

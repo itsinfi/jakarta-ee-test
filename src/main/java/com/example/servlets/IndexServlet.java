@@ -1,4 +1,4 @@
-package com.example;
+package com.example.servlets;
 
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -15,13 +15,19 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Web Servlet to handle index call
+ */
 @WebServlet("/")
 public class IndexServlet extends HttpServlet {
 
+    /**
+     * getter to get results from test table from mysql db and then redirect to index.xhtml jsf page
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            ArrayList<String> result = runDataBaseTest();
+            ArrayList<String> result = getDbTestEntries();
             // resp.getOutputStream().println(result.toString());
             req.setAttribute("dbResults", result);
 
@@ -32,7 +38,17 @@ public class IndexServlet extends HttpServlet {
         }
     }
     
-    public ArrayList<String> runDataBaseTest() throws SQLException, ClassNotFoundException {
+    /**
+     * read and put out all entries from test table inside mysql db
+     * (no hibernate used here)
+     * 
+     * // TODO: add a different request using hibernate to try out lazy loading
+     * 
+     * @return all entries from test table
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public ArrayList<String> getDbTestEntries() throws SQLException, ClassNotFoundException {
 
         Class.forName("com.mysql.cj.jdbc.Driver"); // otherwise does not work on glassfish servlet server somehow :/
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jarkarta-ee-test?useSSL=false&serverTimezone=UTC", "root", "");
