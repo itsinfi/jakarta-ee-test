@@ -54,19 +54,25 @@ public class IndexServlet extends HttpServlet {
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jarkarta-ee-test?useSSL=false&serverTimezone=UTC", "root", "");
 
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM test");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM mais");
 
         ArrayList<String> result = new ArrayList<String>();
 
         while (resultSet.next()) {
-            String resultElement = "";
+            String resultString = "";
+            
+            resultString += "{";
+            resultString += "id: " + resultSet.getInt("id") + ", ";
+            resultString += "sorte: " + resultSet.getString("sorte") + ", ";
+            resultString += "pflanzdatum: " + resultSet.getString("pflanzdatum") + ", ";
+            resultString += "erntezeit: " + resultSet.getString("erntezeit") + ", ";
+            resultString += "menge_tonnen: " + resultSet.getInt("menge_tonnen") + ", ";
+            resultString += "feldnummer: " + resultSet.getInt("feldnummer") + ", ";
+            resultString += "duengemittel: " + resultSet.getString("duengemittel") + ", ";
+            resultString += "anmerkungen: " + resultSet.getString("anmerkungen");
+            resultString += "}";
 
-            resultElement += resultSet.getString("1") + ", ";
-            resultElement += resultSet.getString("2") + ", ";
-            resultElement += resultSet.getString("3") + ", ";
-            resultElement += resultSet.getString("4") + "\n";
-
-            result.add(resultElement);
+            result.add(resultString);
         }
 
         return result;
