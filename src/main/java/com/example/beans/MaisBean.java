@@ -103,7 +103,7 @@ public class MaisBean {
             e.printStackTrace();
         }
 
-        return "index.xhtml?faces-redirect=true";
+        return "/?faces-redirect=true";
     }
     
 }
