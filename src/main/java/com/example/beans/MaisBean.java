@@ -1,14 +1,11 @@
 package com.example.beans;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.time.LocalDate;
+import com.example.entities.MaisEntity;
+import com.example.hibernate.EntityManagerService;
 
-// import jakarta.annotation.ManagedBean;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
 
 /**
  * Bean class to handle saving result from index.xhtml via hibernate sync into value_entities table as a new entry
@@ -83,22 +80,26 @@ public class MaisBean {
     public String save() {
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver"); // otherwise does not work on glassfish servlet server somehow :/
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jarkarta-ee-test?useSSL=false&serverTimezone=UTC", "root", "");
-
-            PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO mais(sorte, pflanzdatum, erntezeit, menge_tonnen, feldnummer, duengemittel, anmerkungen) VALUES (?, ?, ?, ?, ?, ?, ?);");
             
-            stmt.setString(1, sorte);
-            stmt.setString(2, pflanzdatum);
-            stmt.setString(3, erntezeit);
-            stmt.setInt(4, menge_tonnen);
-            stmt.setInt(5, feldnummer);
-            stmt.setString(6, duengemittel);
-            stmt.setString(7, anmerkungen);
+            EntityManager entityManager = EntityManagerService.getEntityManagerFactory().createEntityManager();
 
-            stmt.execute();
-            
+            entityManager.getTransaction().begin();
+
+            MaisEntity mais = new MaisEntity();
+            mais.setSorte(this.sorte);
+            mais.setPflanzdatum(this.pflanzdatum);
+            mais.setErntezeit(this.erntezeit);
+            mais.setMenge_tonnen(this.menge_tonnen);
+            mais.setFeldnummer(this.feldnummer);
+            mais.setDuengemittel(this.duengemittel);
+            mais.setAnmerkungen(this.anmerkungen);
+
+            entityManager.persist(mais);
+
+            entityManager.getTransaction().commit();
+
+            entityManager.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
